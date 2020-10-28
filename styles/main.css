@@ -1,72 +1,87 @@
 html,
 body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
+
+table {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+td {
+    border: 1px solid black;
+}
+
 
 /** Layout **/
 
 .container {
-  width: 1080px;
+    width: 1080px;
 }
+
 
 /* header */
 
 .header-content-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: rgb(230, 225, 225);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(230, 225, 225);
 }
+
 
 /* current location */
 
 .curr-location-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: rgb(101, 129, 253);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(101, 129, 253);
 }
+
 
 /* main-content */
 
 .main-content-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: rgb(230, 225, 225);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(230, 225, 225);
 }
+
 
 /* maps and locations */
 
 .map-and-locations-container {
-  width: 100%;
-  display: flex;
-  background-color: rgb(206, 93, 93);
+    width: 100%;
+    display: flex;
+    background-color: rgb(206, 93, 93);
 }
 
 .weather-locations-container {
-  /* height: 100%; */
-  width: 50%;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  background-color: rgb(231, 189, 189);
+    /* height: 100%; */
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    background-color: rgb(231, 189, 189);
 }
 
 .weather-locations-container div {
-  display: flex;
-  flex-grow: 1;
-  background-color: rgb(157, 243, 154);
+    display: flex;
+    flex-grow: 1;
+    background-color: rgb(157, 243, 154);
 }
 
 .map-container {
-  width: 50%;
+    width: 50%;
 }
+
 
 /* map */
 
 #map {
-  height: 100%;
+    height: 100%;
 }

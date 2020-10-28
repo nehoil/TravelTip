@@ -1,14 +1,23 @@
+import { utilService } from './util-service.js'
+
+
+
 export const mapService = {
     gLocations,
     initService,
     getLatLangFromStr,
-
+    addMarker,
+    addLocation,
+    getLocations
 }
 
 
 var gLocations = [
     // {id, name, lat, lng, weather, createdAt, updatedAt}
 ];
+var gMarkers = [];
+
+
 
 function initService() {}
 
@@ -25,4 +34,19 @@ function getLatLangFromStr(str) {
             }
             return Promise.resolve(locDetails);
         })
+}
+
+function addMarker(marker) {
+    gMarkers.push(marker);
+}
+
+function addLocation(locDetails) {
+    console.log(gLocations);
+
+    var newLocation = { id: utilService.makeId(), name: locDetails.address, coords: { lat: locDetails.lat, lng: locDetails.lng } };
+    gLocations.push(newLocation);
+}
+
+function getLocations() {
+    return gLocations;
 }

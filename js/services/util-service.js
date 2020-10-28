@@ -1,5 +1,7 @@
 'use strict';
-
+export const utilService = {
+    makeId
+}
 
 function makeId(length = 6) {
     var txt = '';
@@ -28,7 +30,7 @@ function getRandomIntInclusive(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
 }
 
-function makePhoto(){
+function makePhoto() {
     var rand = getRandomIntInclusive(1, 8);
     var imageSrc = `img/${rand}.jpg`
     return imageSrc

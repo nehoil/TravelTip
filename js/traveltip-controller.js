@@ -5,7 +5,7 @@ import { mapService } from './services/map-services.js'
 var gDefaultLoc = 'Central Park, New York';
 
 window.onload = () => {
-    document.querySelector('.go-btn').addEventListener('click',(ev)=>{
+    document.querySelector('.go-btn').addEventListener('click', (ev) => {
         ev.preventDefault();
         var searchTerm = document.querySelector('.search-input').value
         onSearch(searchTerm)
@@ -17,7 +17,6 @@ window.onload = () => {
 }
 
 var gMap;
-var gMarkers = [];
 
 
 
@@ -26,7 +25,6 @@ function initMap() {
         center: { lat: -34.397, lng: 150.644 },
         zoom: 8,
     });
-
     return Promise.resolve()
 }
 
@@ -35,12 +33,11 @@ function onSearch(str) {
     mapService.getLatLangFromStr(str)
         .then(renderLoc)
         .then(addLocation)
-
+        .then(renderLocations)
 }
 
 function onLocClick(id) {
     console.log('hello');
-
 }
 
 
@@ -56,18 +53,18 @@ function addLocation(locDetails) {
     const latLng = { lat: locDetails.lat, lng: locDetails.lng }
     var marker = new google.maps.Marker({
         position: latLng,
-        gMap,
+        map: gMap,
         title: locDetails.address
     });
-
-    gMarkers.push(marker)
-    console.log(gMarkers);
-
-
-    var newLocation = { id: 100, name: locDetails.address, coords: { lat: locDetails.lat, lng: locDetails.lng } };
-    // gLocations.push(newLocation);
+    mapService.addMarker(marker);
+    mapService.addLocation(locDetails);
 }
 
-function onAddLoc() {
-    addLocation(locDetails)
+function renderLocations() {
+    var locations = mapService.getLocations().map((loc) => {
+        return `<tr><td>${loc.id}</td><td>${loc.name}</td><td>${loc.coords.lat}</td><td>${loc.coords.lng}</td></tr>`
+    });
+    var elTable = document.querySelector('.locations-table');
+    elTable.innerHTML = locations.join('');
+    console.log(locations);
 }
