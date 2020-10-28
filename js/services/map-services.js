@@ -9,23 +9,17 @@ var gLocations = [
 ];
 
 function initService(){
-    getLatLangFromStr('telaviv')
 }
 
 function getLatLangFromStr(str){
-    // here goes the geo-api-code  
-    // Nehoray
     return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${str}&key=AIzaSyCkBmq94RUL-VNdku46pXE3nt-_Z01Damo`)
     .then(res => {
-        // console.log(res.data.results);
-        var loc = res.data.results
-        console.log(loc.geometryc);
+        var loc = res.data.results[0]
         var locDetails = {
             address: loc.formatted_address,
-            lat: loc.geometry.lat,
-            lng: loc.geometry.lng,
+            lat: loc.geometry.location.lat,
+            lng: loc.geometry.location.lng,
         }
-        
+        return Promise.resolve(locDetails);
     })
-    return Promise.resolve({lat,lang})
 }
