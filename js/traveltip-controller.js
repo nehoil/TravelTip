@@ -5,12 +5,15 @@ import { mapService } from './services/map-services.js'
 var gDefaultLoc = 'Central Park, New York';
 
 window.onload = () => {
+    document.querySelector('.go-btn').addEventListener('click',(ev)=>{
+        ev.preventDefault();
+        var searchTerm = document.querySelector('.search-input').value
+        onSearch(searchTerm)
+    })
     onSearch('telaviv')
     mapService.initService()
     initMap()
         // .then(renderLoc(gDefaultLoc))
-
-
 }
 
 var gMap;
