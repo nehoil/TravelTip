@@ -146,19 +146,15 @@ function renderLocations() {
     });
     var elTable = document.querySelector('.locations-table');
     elTable.innerHTML = locations.join('');
-    mapService.getLocations().forEach((loc) => {
-        document.querySelector(`.go-btn-${loc.id}`).addEventListener('click', onGoToLoc);
-        document.querySelector(`.del-btn-${loc.id}`).addEventListener('click', onDeleteLoc);
-    })
+
 }
 
 
 
 function onGoToLoc(loc) {
     console.log(loc.target.className);
-    getLocations().findIndex((loc) => {
-        return loc.id === l
-    })
+
+
 
 }
 
