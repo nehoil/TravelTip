@@ -13,7 +13,7 @@ function initService(){
 }
 
 function getLatLangFromStr(str){
-    // here goes the geo-api-code
+    // here goes the geo-api-code  
     // Nehoray
     return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${str}&key=AIzaSyCkBmq94RUL-VNdku46pXE3nt-_Z01Damo`)
     .then(res => {
