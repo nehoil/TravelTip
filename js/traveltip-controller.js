@@ -29,6 +29,7 @@ function onSearch(str) {
     mapService.getLatLangFromStr(str)
         .then(renderLoc)
         // new code here.
+        console.log('te');
 }
 
 function onLocClick(id) {
