@@ -1,14 +1,20 @@
 'use-strict';
 
 import { mapService } from './services/map-services.js'
-
+getParameterByName('lat')
+getParameterByName('lng')
 // var gDefaultLoc = 'Central Park, New York';
-
 window.onload = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const myParam = urlParams.get('myParam');
+    console.log(myParam);
     document.querySelector('.go-btn').addEventListener('click', (ev) => {
         ev.preventDefault();
         var searchTerm = document.querySelector('.search-input').value
         onSearch(searchTerm)
+    })
+    document.querySelector('.copy-btn').addEventListener('click', (ev) => {
+        onCopyLoc()
     })
     document.querySelector('.my-location-btn').addEventListener('click', (ev) => {
         ev.preventDefault();
@@ -23,7 +29,6 @@ var gMap;
 
 
 function initMap() {
-    console.log('this');
     gMap = new google.maps.Map(document.getElementById("map"), {
         center: { lat: -34.397, lng: 150.644 },
         zoom: 8,
@@ -42,22 +47,33 @@ function initMap() {
 }
 
 
+function getParameterByName(name, url = window.location.href) {
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    console.log(decodeURIComponent(results[2].replace(/\+/g, ' ')));
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+
 function onUserLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
-                const pos = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude,
-                };
-                gMap.setCenter(pos);
-                new google.maps.Marker({
-                    position: pos,
-                    map: gMap,
-                    title: 'My Location'
-                });
-                mapService.getAddressFromLatLng(pos)
-                    .then(renderLoc)
-            },
+            const pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+            };
+            gMap.setCenter(pos);
+            new google.maps.Marker({
+                position: pos,
+                map: gMap,
+                title: 'My Location'
+            });
+            mapService.getAddressFromLatLng(pos)
+                .then(renderLoc)
+        },
 
             () => {
                 handleLocationError(true, infoWindow, map.getCenter());
@@ -67,6 +83,25 @@ function onUserLocation() {
         handleLocationError(false, infoWindow, map.getCenter());
     }
 
+}
+
+function onCopyLoc() {
+    var input = document.createElement('textarea');
+    var posStr = document.querySelector('.curr-location-address').innerText;
+    var posLatLng = mapService.getLatLangFromStr(posStr)
+        .then(loc => {
+            input.innerHTML = `https://nehoil.github.io/TravelTip/?lat=${loc.lat}&lng=${loc.lng}`
+            console.log(input.innerHTML);
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand('copy');
+            document.body.removeChild(input);
+        })
+    // document.body.appendChild(input);
+    // input.select();
+    // var result = document.execCommand('copy');
+    // document.body.removeChild(input);
+    // return result;
 }
 
 function onSearch(str) {
