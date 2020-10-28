@@ -1,7 +1,8 @@
 export const mapService = {
     gLocations,
     initService,
-    getLatLangFromStr
+    getLatLangFromStr,
+
 }
 
 

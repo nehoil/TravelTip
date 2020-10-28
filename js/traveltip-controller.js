@@ -14,6 +14,8 @@ window.onload = () => {
 }
 
 var gMap;
+var gMarkers = [];
+
 
 
 function initMap() {
@@ -21,6 +23,7 @@ function initMap() {
         center: { lat: -34.397, lng: 150.644 },
         zoom: 8,
     });
+
     return Promise.resolve()
 }
 
@@ -29,7 +32,6 @@ function onSearch(str) {
     mapService.getLatLangFromStr(str)
         .then(renderLoc)
         .then(addLocation)
-        .then(addMarker)
 
 }
 
@@ -44,37 +46,25 @@ function renderLoc(locDetails) {
     var lng = locDetails.lng;
     gMap.setCenter({ lat: lat, lng: lng });
     return Promise.resolve(locDetails)
-        // addNewPlace(lat, lng, 'You are here');
 }
 
 
-function addMarker() {
+function addLocation(locDetails) {
+    const latLng = { lat: locDetails.lat, lng: locDetails.lng }
+    var marker = new google.maps.Marker({
+        position: latLng,
+        gMap,
+        title: locDetails.address
+    });
+
+    gMarkers.push(marker)
+    console.log(gMarkers);
 
 
+    var newLocation = { id: 100, name: locDetails.address, coords: { lat: locDetails.lat, lng: locDetails.lng } };
+    // gLocations.push(newLocation);
 }
 
 function onAddLoc() {
     addLocation(locDetails)
-}
-
-/////// MOVE TO SERVICE ///////
-
-var gMarkers = [];
-
-
-
-function addLocation(locDetails) {
-    var marker = new google.maps.Marker({
-        position: {
-            lat: locDetails.lat,
-            lng: locDetails.lng
-        },
-        map,
-        title: locDetails.address
-    });
-    gMarkers.push(marker)
-
-    var newLocation = { id: getNewId(), name: title, coords: { lat: locDetails.lat, lng: locDetails.lng } };
-    gLocations.push(newPlace);
-    // renderPlaces();
 }
