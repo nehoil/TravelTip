@@ -2,7 +2,7 @@
 
 import { mapService } from './services/map-services.js'
 
-var gDefaultLoc = 'Central Park, New York';
+// var gDefaultLoc = 'Central Park, New York';
 
 window.onload = () => {
     document.querySelector('.go-btn').addEventListener('click', (ev) => {
@@ -12,16 +12,14 @@ window.onload = () => {
     })
     document.querySelector('.my-location-btn').addEventListener('click', (ev) => {
         ev.preventDefault();
-        onUserLocation()
+        onUserLocation();
     })
-    onSearch('telaviv')
-    mapService.initService()
-    initMap()
-        // .then(renderLoc(gDefaultLoc))
+    onSearch('telaviv');
+    mapService.initService();
+    initMap();
 }
 
 var gMap;
-
 
 
 function initMap() {
@@ -29,6 +27,16 @@ function initMap() {
         center: { lat: -34.397, lng: 150.644 },
         zoom: 8,
     });
+    gMap.addListener("click", (mapsMouseEvent) => {
+        var pos = JSON.stringify(mapsMouseEvent.latLng, null, 2);
+        var latLng = JSON.parse(pos);
+        mapService.getAddressFromLatLng(latLng)
+            .then((locDetails) => {
+                addLocation(locDetails);
+                renderLoc(locDetails);
+                renderLocations();
+            })
+    })
     return Promise.resolve()
 }
 
@@ -94,18 +102,12 @@ function addLocation(locDetails) {
     });
     mapService.addMarker(marker);
     mapService.addLocation(locDetails);
-
-    gMarkers.push(marker)
-
-    var newLocation = { id: 100, name: locDetails.address, coords: { lat: locDetails.lat, lng: locDetails.lng } };
-    // gLocations.push(newLocation);
 }
 
 function renderLocations() {
     var locations = mapService.getLocations().map((loc) => {
-        return `<tr><td>${loc.id}</td><td>${loc.name}</td><td>${loc.coords.lat}</td><td>${loc.coords.lng}</td></tr>`
+        return `<tr><td>${loc.name}</td><td>${loc.coords.lat}</td><td>${loc.coords.lng}</td></tr>`
     });
     var elTable = document.querySelector('.locations-table');
     elTable.innerHTML = locations.join('');
-    console.log(locations);
 }

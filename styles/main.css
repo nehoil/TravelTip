@@ -8,6 +8,9 @@ body {
 table {
     border: 1px solid black;
     border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+    margin: 10px;
 }
 
 td {
@@ -72,7 +75,8 @@ td {
 .weather-locations-container div {
     display: flex;
     flex-grow: 1;
-    background-color: rgb(157, 243, 154);
+    background-color: rgb(170 218 255);
+    border: 1px solid;
 }
 
 .map-container {

@@ -55,8 +55,6 @@ function addMarker(marker) {
 }
 
 function addLocation(locDetails) {
-    console.log(gLocations);
-
     var newLocation = { id: utilService.makeId(), name: locDetails.address, coords: { lat: locDetails.lat, lng: locDetails.lng } };
     gLocations.push(newLocation);
 }
