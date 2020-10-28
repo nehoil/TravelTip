@@ -1,10 +1,11 @@
 'use-strict';
 
-// import { mapService } from './services/map-services.js'
+import { mapService } from './services/map-services.js'
 
 var gDefaultLoc = 'Central Park, New York';
 
 window.onload = () => {
+    mapService.initService()
     initMap()
         .then(renderLoc(gDefaultLoc))
 }
