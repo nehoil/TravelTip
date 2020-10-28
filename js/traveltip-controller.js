@@ -34,3 +34,7 @@ function onLocClick(id) {
 function renderLoc(id) {
 
 }
+
+function onAddLoc() {
+
+}
