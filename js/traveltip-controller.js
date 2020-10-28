@@ -38,3 +38,23 @@ function renderLoc(id) {
 function onAddLoc() {
 
 }
+
+/////// MOVE TO SERVICE ///////
+
+var gMarkers = [];
+
+function addPlace(lat, lng, title) {
+    var marker = new google.maps.Marker({
+        position: {
+            lat: lat,
+            lng: lng
+        },
+        map,
+        title: title
+    });
+    gMarkers.push(marker)
+
+    var newPlace = { id: getNewId(), name: title, coords: { lat, lng } };
+    gLocations.push(newPlace);
+    renderPlaces();
+}
