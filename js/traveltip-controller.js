@@ -28,10 +28,11 @@ function initMap() {
 function onSearch(str) {
     mapService.getLatLangFromStr(str)
         .then(renderLoc)
-        // new code here.
+        .then(addLocation)
 }
 
 function onLocClick(id) {
+    console.log('hello');
 
 }
 
@@ -40,7 +41,8 @@ function renderLoc(locDetails) {
     var lat = locDetails.lat;
     var lng = locDetails.lng;
     gMap.setCenter({ lat: lat, lng: lng });
-    // addNewPlace(lat, lng, 'You are here');
+    return Promise.resolve(locDetails)
+        // addNewPlace(lat, lng, 'You are here');
 }
 
 function onAddLoc() {
@@ -53,18 +55,18 @@ var gMarkers = [];
 
 
 
-function addPlace(lat, lng, title) {
+function addLocation(locDetails) {
     var marker = new google.maps.Marker({
         position: {
-            lat: lat,
-            lng: lng
+            lat: locDetails.lat,
+            lng: locDetails.lng
         },
         map,
-        title: title
+        title: locDetails.address
     });
     gMarkers.push(marker)
 
-    var newLocation = { id: getNewId(), name: title, coords: { lat, lng } };
+    var newLocation = { id: getNewId(), name: title, coords: { lat: locDetails.lat, lng: locDetails.lng } };
     gLocations.push(newPlace);
-    renderPlaces();
+    // renderPlaces();
 }
