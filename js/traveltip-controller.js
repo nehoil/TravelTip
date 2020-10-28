@@ -29,6 +29,8 @@ function onSearch(str) {
     mapService.getLatLangFromStr(str)
         .then(renderLoc)
         .then(addLocation)
+        .then(addMarker)
+
 }
 
 function onLocClick(id) {
@@ -45,8 +47,14 @@ function renderLoc(locDetails) {
         // addNewPlace(lat, lng, 'You are here');
 }
 
-function onAddLoc() {
 
+function addMarker() {
+
+
+}
+
+function onAddLoc() {
+    addLocation(locDetails)
 }
 
 /////// MOVE TO SERVICE ///////
