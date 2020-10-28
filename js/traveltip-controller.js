@@ -28,6 +28,7 @@ function initMap() {
 function onSearch(str) {
     mapService.getLatLangFromStr(str)
         .then(renderLoc)
+        // new code here.
 }
 
 function onLocClick(id) {
