@@ -106,8 +106,27 @@ function addLocation(locDetails) {
 
 function renderLocations() {
     var locations = mapService.getLocations().map((loc) => {
-        return `<tr><td>${loc.name}</td><td>${loc.coords.lat}</td><td>${loc.coords.lng}</td></tr>`
+        return `<tr><td>${loc.name}</td><td>${loc.coords.lat}</td><td>${loc.coords.lng}</td><td><button class="go-btn-${loc.id}">GO!</button></td><td><button class="del-btn-${loc.id}">X</button></td></tr>`
     });
     var elTable = document.querySelector('.locations-table');
     elTable.innerHTML = locations.join('');
+    mapService.getLocations().forEach((loc) => {
+        document.querySelector(`.go-btn-${loc.id}`).addEventListener('click', onGoToLoc);
+        document.querySelector(`.del-btn-${loc.id}`).addEventListener('click', onDeleteLoc);
+    })
+}
+
+
+
+function onGoToLoc(loc) {
+    console.log(loc.target.className);
+    getLocations().findIndex((loc) => {
+        return loc.id === l
+    })
+
+}
+
+function onDeleteLoc(loc) {
+    console.log(loc.target.className);
+
 }
