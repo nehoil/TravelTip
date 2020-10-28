@@ -6,7 +6,7 @@ var gDefaultLoc = 'Central Park, New York';
 
 window.onload = () => {
     initMap()
-    .then(renderLoc(gDefaultLoc))
+        .then(renderLoc(gDefaultLoc))
 }
 
 var gMap;
@@ -21,15 +21,15 @@ function initMap() {
 }
 
 
-function onSearch(){
+function onSearch() {
 
 }
 
-function onLocClick(id){
+function onLocClick(id) {
 
 }
 
 
-function renderLoc(id){
-    
+function renderLoc(id) {
+
 }
