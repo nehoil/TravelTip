@@ -1,13 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Travel Tip</title>
     <link rel="stylesheet" href="styles/main.css">
 </head>
+
 <body>
-    <h1>Travek Tip</h1>
-    <script type="module" src="js/controller.js"></script>
+    <header>
+        <div class="header-content-container">
+            <div class="logo-container">
+                <h1>Travel Tip</h1>
+            </div>
+            <div class="manu-container">
+                <form action="">
+                    <input type="text" value="" placeholder="Enter Location">
+                    <button>GO</button>
+                    <button>My Location</button>
+                </form>
+            </div>
+        </div>
+    </header>
+    <div class="curr-location-container">
+        <h2>Location:</h2>
+        <span class="curr-location-address">
+            Central Park, New York
+        </span>
+        <button>Copy Location</button>
+    </div>
+    <section class="main-content-container">
+        <div class="map-and-locations-container">
+            <div class="weather-locations-container">
+                <div class="weather-container">
+                    weather-container
+                </div>
+                <div class="locations-table">
+                    locations-table
+                </div>
+            </div>
+            <div class="map-container">
+                <div id="map" style="width: 100%; height: 400px;"></div>
+            </div>
+        </div>
+    </section>
+    <script type="module" src="js/traveltip-controller.js"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script> -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkBmq94RUL-VNdku46pXE3nt-_Z01Damo&libraries=&v=weekly"
+      defer
+    ></script> 
 </body>
+
 </html>
