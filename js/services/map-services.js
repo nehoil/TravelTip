@@ -9,7 +9,9 @@ export const mapService = {
     addMarker,
     addLocation,
     getLocations,
-    getAddressFromLatLng
+    getAddressFromLatLng,
+    deleteLocation,
+    getLocation
 
 }
 
@@ -58,4 +60,12 @@ function addLocation(locDetails) {
 
 function getLocations() {
     return gLocations;
+}
+
+function deleteLocation(locIdx) {
+    gLocations.splice(locIdx, 1);
+}
+
+function getLocation(locIdx) {
+    return gLocations[locIdx]
 }

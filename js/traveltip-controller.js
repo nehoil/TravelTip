@@ -107,23 +107,39 @@ function addLocation(locDetails) {
 
 function renderLocations() {
     var locations = mapService.getLocations().map((loc) => {
-        return `<tr><td>${loc.name}</td><td>${loc.coords.lat}</td><td>${loc.coords.lng}</td><td><button class="go-btn-${loc.id}">GO!</button></td><td><button class="del-btn-${loc.id}">X</button></td></tr>`
+        return `<tr><td>${loc.name}</td><td>${loc.coords.lat}</td><td>${loc.coords.lng}</td><td><button data-id="go-btn-${loc.id}">GO!</button></td><td><button data-id="del-btn-${loc.id}">X</button></td></tr>`
     });
     var elTable = document.querySelector('.locations-table');
     elTable.innerHTML = locations.join('');
 
 }
 
+document.querySelector('.locations-table').addEventListener('click', doAction);
 
 
-function onGoToLoc(loc) {
-    console.log(loc.target.className);
+function doAction(ev) {
+    console.log(ev);
+    if (ev.target.nodeName !== 'BUTTON') return;
+    if (ev.target.innerText === 'GO!') {
+        var locIdx = mapService.getLocations().findIndex((loc) => {
+            return `go-btn-${loc.id}` === ev.target.dataset.id
+
+        })
+        var loc = mapService.getLocation(locIdx);
+
+        console.log(loc);
+        renderLoc(locDetails)
+
+    }
 
 
 
-}
+    if (ev.target.innerText === 'X') {
+        var locIdx = mapService.getLocations().findIndex((loc) => {
+            return `del-btn-${loc.id}` === ev.target.dataset.id
 
-function onDeleteLoc(loc) {
-    console.log(loc.target.className);
+        })
+        mapService.deleteLocation(locIdx);
+    }
 
 }
