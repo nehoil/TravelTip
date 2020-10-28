@@ -5,9 +5,12 @@ import { mapService } from './services/map-services.js'
 var gDefaultLoc = 'Central Park, New York';
 
 window.onload = () => {
+    onSearch('telaviv')
     mapService.initService()
     initMap()
-        .then(renderLoc(gDefaultLoc))
+        // .then(renderLoc(gDefaultLoc))
+
+
 }
 
 var gMap;
@@ -32,8 +35,11 @@ function onLocClick(id) {
 }
 
 
-function renderLoc(loc) {
-
+function renderLoc(locDetails) {
+    var lat = locDetails.lat;
+    var lng = locDetails.lng;
+    gMap.setCenter({ lat: lat, lng: lng });
+    // addNewPlace(lat, lng, 'You are here');
 }
 
 function onAddLoc() {
@@ -44,12 +50,6 @@ function onAddLoc() {
 
 var gMarkers = [];
 
-function showLocation(locDetails) {
-    var lat = locDetails.coords.latitude;
-    var lng = locDetails.coords.longitude;
-    map.setCenter({ lat: lat, lng: lng });
-    addNewPlace(lat, lng, 'You are here');
-}
 
 
 function addPlace(lat, lng, title) {

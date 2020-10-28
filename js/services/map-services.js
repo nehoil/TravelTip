@@ -1,6 +1,7 @@
 export const mapService = {
     gLocations,
-    initService
+    initService,
+    getLatLangFromStr
 }
 
 
@@ -8,9 +9,7 @@ var gLocations = [
     // {id, name, lat, lng, weather, createdAt, updatedAt}
 ];
 
-function initService() {
-    getLatLangFromStr('hadera')
-}
+function initService() {}
 
 function getLatLangFromStr(str) {
     return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${str}&key=AIzaSyCkBmq94RUL-VNdku46pXE3nt-_Z01Damo`)
