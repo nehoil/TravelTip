@@ -3,11 +3,10 @@
 import { mapService } from './services/map-services.js'
 getParameterByName('lat')
 getParameterByName('lng')
-// var gDefaultLoc = 'Central Park, New York';
+    // var gDefaultLoc = 'Central Park, New York';
 window.onload = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const myParam = urlParams.get('myParam');
-    console.log(myParam);
     document.querySelector('.go-btn').addEventListener('click', (ev) => {
         ev.preventDefault();
         var searchTerm = document.querySelector('.search-input').value
@@ -61,19 +60,19 @@ function getParameterByName(name, url = window.location.href) {
 function onUserLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
-            const pos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude,
-            };
-            gMap.setCenter(pos);
-            new google.maps.Marker({
-                position: pos,
-                map: gMap,
-                title: 'My Location'
-            });
-            mapService.getAddressFromLatLng(pos)
-                .then(renderLoc)
-        },
+                const pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                };
+                gMap.setCenter(pos);
+                new google.maps.Marker({
+                    position: pos,
+                    map: gMap,
+                    title: 'My Location'
+                });
+                mapService.getAddressFromLatLng(pos)
+                    .then(renderLoc)
+            },
 
             () => {
                 handleLocationError(true, infoWindow, map.getCenter());
@@ -97,11 +96,11 @@ function onCopyLoc() {
             var result = document.execCommand('copy');
             document.body.removeChild(input);
         })
-    // document.body.appendChild(input);
-    // input.select();
-    // var result = document.execCommand('copy');
-    // document.body.removeChild(input);
-    // return result;
+        // document.body.appendChild(input);
+        // input.select();
+        // var result = document.execCommand('copy');
+        // document.body.removeChild(input);
+        // return result;
 }
 
 function onSearch(str) {
@@ -109,10 +108,6 @@ function onSearch(str) {
         .then(renderLoc)
         .then(addLocation)
         .then(renderLocations)
-}
-
-function onLocClick(id) {
-    console.log('hello');
 }
 
 
@@ -142,7 +137,7 @@ function addLocation(locDetails) {
 
 function renderLocations() {
     var locations = mapService.getLocations().map((loc) => {
-        return `<tr><td>${loc.name}</td><td>${loc.coords.lat}</td><td>${loc.coords.lng}</td><td><button data-id="go-btn-${loc.id}">GO!</button></td><td><button data-id="del-btn-${loc.id}">X</button></td></tr>`
+        return `<tr><td>${loc.name}</td><td>${loc.coords.lat}</td><td>${loc.coords.lng}</td><td><button data-id="go-btn-${loc.id}">GO!</button></td><td><button data-id="del-btn-${loc.id}" name="${loc.name}">X</button></td></tr>`
     });
     var elTable = document.querySelector('.locations-table');
     elTable.innerHTML = locations.join('');
@@ -153,28 +148,29 @@ document.querySelector('.locations-table').addEventListener('click', doAction);
 
 
 function doAction(ev) {
-    console.log(ev);
     if (ev.target.nodeName !== 'BUTTON') return;
     if (ev.target.innerText === 'GO!') {
         var locIdx = mapService.getLocations().findIndex((loc) => {
             return `go-btn-${loc.id}` === ev.target.dataset.id
-
         })
         var loc = mapService.getLocation(locIdx);
-
-        console.log(loc);
-        renderLoc(locDetails)
-
+        var locDetails = {
+            lat: loc.coords.lat,
+            lng: loc.coords.lng,
+            address: loc.name
+        }
+        renderLoc(locDetails);
     }
-
-
 
     if (ev.target.innerText === 'X') {
         var locIdx = mapService.getLocations().findIndex((loc) => {
             return `del-btn-${loc.id}` === ev.target.dataset.id
-
         })
-        mapService.deleteLocation(locIdx);
-    }
 
+        mapService.deleteLocation(locIdx);
+
+        var markerIdx = mapService.getMarkerIdx(ev.target.name)
+        mapService.removeMarker(markerIdx)
+        renderLocations();
+    }
 }

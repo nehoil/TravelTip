@@ -11,7 +11,10 @@ export const mapService = {
     getLocations,
     getAddressFromLatLng,
     deleteLocation,
-    getLocation
+    getLocation,
+    getMarkerIdx,
+    removeMarker
+
 
 }
 
@@ -68,4 +71,16 @@ function deleteLocation(locIdx) {
 
 function getLocation(locIdx) {
     return gLocations[locIdx]
+}
+
+function removeMarker(markerIdx) {
+    gMarkers[markerIdx].setMap(null);
+    gMarkers.splice(markerIdx, 1);
+}
+
+function getMarkerIdx(title) {
+    var markerIdx = gMarkers.findIndex((marker) => {
+        return marker.title === title;
+    })
+    return markerIdx;
 }
